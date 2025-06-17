@@ -3,4 +3,5 @@ uvicorn[standard]
 pillow
 transformers
 torch
+torchvision
 python-multipart
