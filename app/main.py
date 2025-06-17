@@ -1,7 +1,7 @@
 import uvicorn
 #from fastapi import FastAPI, UploadFile, File
 #from fastapi.middleware.cors import CORSMiddleware
-#from pydantic import BaseModel
+from pydantic import BaseModel
 #from transformers import pipeline, AutoProcessor
 #from PIL import Image
 #from io import BytesIO
