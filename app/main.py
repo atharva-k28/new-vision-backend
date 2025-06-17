@@ -1,9 +1,10 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from transformers import pipeline, AutoProcessor
-
+from PIL import Image
+from io import BytesIO
 
 class Text(BaseModel):
     input_text:str
@@ -42,3 +43,10 @@ captioner = pipeline("image-to-text",model="Salesforce/blip-image-captioning-bas
 def process_url(data: url):
     caption = captioner(data.img_url)
     return{"caption":caption[0]['generated_text']}
+
+@app.post("/process-image")
+async def process_image(file:UploadFile = File(...)):
+    contents = await file.read()
+    image = Image.open(BytesIO(contents))
+    caption = captioner(image)
+    return {"caption":caption[0]['generated_text']}
